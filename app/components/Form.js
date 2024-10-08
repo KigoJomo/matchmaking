@@ -1,4 +1,5 @@
-// components/Form.js
+// app/components/Form.js
+
 'use client'
 
 import { useState } from 'react'
@@ -59,57 +60,49 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full md:w-[30vw] px-12 md:px-0 flex flex-col items-center justify-center gap-6"
+      className="w-full md:w-[40vw] px-12 md:px-0 flex flex-col items-center justify-center gap-6"
       aria-live="polite"
     >
-      <h2 className="text-3xl text-center mb-4">Match Making with Fred</h2>
+      {/* Using the updated InputWrapper for each input */}
+      <InputWrapper id="names" label="What's your name?" type="text" value={formData.names} onChange={handleChange} required />
+      <InputWrapper id="email" label="Your email address" type="email" value={formData.email} onChange={handleChange} required />
 
-      <InputWrapper id="names" label="Names" type="text" onChange={handleChange} required />
-      <InputWrapper id="email" label="Email Address" type="email" onChange={handleChange} required />
-      
-      <div className="w-full flex flex-col gap-2">
-        <label className="opacity-50">I am...</label>
-        <div className="flex gap-4">
-          <label>
-            <input type="radio" name="gender" value="Male" onChange={handleChange} required /> Male
-          </label>
-          <label>
-            <input type="radio" name="gender" value="Female" onChange={handleChange} required /> Female
-          </label>
-        </div>
-      </div>
+      <InputWrapper 
+        id="gender" 
+        label="I am..." 
+        type="radio" 
+        radioName="gender" 
+        radioOptions={['Male', 'Female']} 
+        value={formData.gender} 
+        onChange={handleChange} 
+        required 
+      />
 
-      <InputWrapper id="age" label="My Age (Yrs)" type="number" onChange={handleChange} required />
-      <InputWrapper id="occupation" label="Occupation" type="text" onChange={handleChange} required />
-      <InputWrapper id="location" label="Location" type="text" onChange={handleChange} required />
-      <InputWrapper id="faith" label="About your faith" type="text" onChange={handleChange} />
-      <InputWrapper id="children" label="How many children do you have?" type="text" onChange={handleChange} required />
-      
-      <div className="w-full flex flex-col gap-2">
-        <label className="opacity-50">Anything else you&apos;d like to share about yourself?</label>
-        <textarea
-          id="aboutYou"
-          name="aboutYou"
-          value={formData.aboutYou}
-          onChange={handleChange}
-          className="p-2 rounded border border-white border-opacity-25 bg-transparent"
-          required
-        />
-      </div>
+      <InputWrapper id="age" label="My Age (Yrs)" type="number" value={formData.age} onChange={handleChange} required />
+      <InputWrapper id="occupation" label="Occupation" type="text" value={formData.occupation} onChange={handleChange} required />
+      <InputWrapper id="location" label="Location" type="text" value={formData.location} onChange={handleChange} required />
+      <InputWrapper id="faith" label="About your faith" type="text" value={formData.faith} onChange={handleChange} />
+      <InputWrapper id="children" label="How many children do you have?" type="text" value={formData.children} onChange={handleChange} required />
 
-      <InputWrapper id="mpesaCode" label="MPESA Code" type="text" onChange={handleChange} required />
+      <InputWrapper 
+        id="aboutYou" 
+        label="Anything else you'd like to share about yourself?" 
+        type="textarea" 
+        value={formData.aboutYou} 
+        onChange={handleChange} 
+        required 
+      />
+
+      <InputWrapper id="mpesaCode" label="MPESA Code" type="text" value={formData.mpesaCode} onChange={handleChange} required />
       
-      <div className="w-full flex flex-col gap-2">
-        <label className="opacity-50">What are you looking for in a partner?</label>
-        <textarea
-          id="lookingFor"
-          name="lookingFor"
-          value={formData.lookingFor}
-          onChange={handleChange}
-          className="p-2 rounded border border-white border-opacity-25 bg-transparent"
-          required
-        />
-      </div>
+      <InputWrapper 
+        id="lookingFor" 
+        label="What are you looking for in a partner?" 
+        type="textarea" 
+        value={formData.lookingFor} 
+        onChange={handleChange} 
+        required 
+      />
 
       <button
         type="submit"

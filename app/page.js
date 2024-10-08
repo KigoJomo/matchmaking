@@ -1,9 +1,9 @@
-import Form from './components/Form'
+import Landing from "./components/Landing";
 
 export default function Home() {
   return (
     <>
-      <Form />
+      <Landing />
     </>
   )
 }

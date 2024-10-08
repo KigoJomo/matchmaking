@@ -16,12 +16,6 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Sora", system-ui;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -30,6 +24,18 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Italiana", sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
 }
 
 .gradient-background {
@@ -48,4 +54,9 @@ h1, h2, h3, h4, h5, h6 {
   100% {
     background-position: 0% 50%;
   }
+}
+
+body {
+  color: var(--foreground);
+  font-family: "Sora", system-ui;
 }
