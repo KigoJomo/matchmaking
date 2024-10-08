@@ -47,7 +47,7 @@ const Form = () => {
 
       if (response.ok) {
         if (result.url) {
-          window.open(result.url, '_blank')
+          window.open(result.url)
           setSuccess(true)
         } else{
           // alert the user that the response couldn't be sent on whatsapp
