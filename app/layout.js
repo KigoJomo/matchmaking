@@ -3,6 +3,17 @@ import "./globals.css";
 export const metadata = {
   title: "Match Making by Fred",
   description: "#muoenamuolewo",
+  metadataBase: new URL('https://matchmakingbyfred.vercel.app/'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'de-DE': '/de-DE',
+    },
+  },
+  openGraph: {
+    images: '/images/open-graph.webp',
+  },
 };
 
 export default function RootLayout({ children }) {
