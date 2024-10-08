@@ -4,6 +4,11 @@
 
 import { useState } from 'react'
 import InputWrapper from './InputWrapper'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +54,25 @@ const Form = () => {
         if (result.url) {
           window.open(result.url)
           setSuccess(true)
-        } else{
+          toast.success('Your profile has been registered successfully!', {
+            autoClose: false,
+          })
+          setFormData({
+            names: '',
+            email: '',
+            gender: '',
+            age: '',
+            occupation: '',
+            location: '',
+            faith: '',
+            children: '',
+            aboutYou: '',
+            mpesaCode: '',
+            lookingFor: '',
+          })
+            // reset slick slider back to first item
+            document.getElementById("section").scrollTo(0, 0)
+        } else {
           // alert the user that the response couldn't be sent on whatsapp
           // construct a url (https://wa.me ...) using the data that the user entered, and give them an option to 'click here' to send their via whatsapp
         }
@@ -63,125 +86,178 @@ const Form = () => {
     setLoading(false)
   }
 
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full md:w-[40vw] px-12 md:px-0 flex flex-col items-center justify-center gap-6"
-      aria-live="polite"
-    >
-      {/* Using the updated InputWrapper for each input */}
-      <InputWrapper
-        id="names"
-        label="What's your name?"
-        type="text"
-        value={formData.names}
-        onChange={handleChange}
-        required
-      />
-      <InputWrapper
-        id="email"
-        label="Your email address"
-        type="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-
-      <InputWrapper
-        id="gender"
-        label="I am..."
-        type="radio"
-        radioName="gender"
-        radioOptions={['Male', 'Female']}
-        value={formData.gender}
-        onChange={handleChange}
-        required
-      />
-
-      <InputWrapper
-        id="age"
-        label="My Age (Yrs)"
-        type="number"
-        value={formData.age}
-        onChange={handleChange}
-        required
-      />
-      <InputWrapper
-        id="occupation"
-        label="Occupation"
-        type="text"
-        value={formData.occupation}
-        onChange={handleChange}
-        required
-      />
-      <InputWrapper
-        id="location"
-        label="Location"
-        type="text"
-        value={formData.location}
-        onChange={handleChange}
-        required
-      />
-      <InputWrapper
-        id="faith"
-        label="About your faith"
-        type="text"
-        value={formData.faith}
-        onChange={handleChange}
-      />
-      <InputWrapper
-        id="children"
-        label="How many children do you have?"
-        type="text"
-        value={formData.children}
-        onChange={handleChange}
-        required
-      />
-
-      <InputWrapper
-        id="aboutYou"
-        label="Anything else you'd like to share about yourself?"
-        type="textarea"
-        value={formData.aboutYou}
-        onChange={handleChange}
-        required
-      />
-
-      <InputWrapper
-        id="mpesaCode"
-        label="MPESA Code"
-        type="text"
-        value={formData.mpesaCode}
-        onChange={handleChange}
-        required
-      />
-
-      <InputWrapper
-        id="lookingFor"
-        label="What are you looking for in a partner?"
-        type="textarea"
-        value={formData.lookingFor}
-        onChange={handleChange}
-        required
-      />
-
-      <button
-        type="submit"
-        onClick={handleSubmit}
-        disabled={loading || !formData}
-        className={`w-full rounded text-background py-2 mt-4 ${
-          loading ? 'bg-gray-400' : 'bg-foreground'
-        }`}
+    <>
+      <ToastContainer />
+      <form
+        onSubmit={handleSubmit}
+        className="w-full md:border px-4 md:px-32 py-12 rounded-3xl flex flex-col items-center justify-center gap-6"
+        aria-live="polite"
       >
-        {loading ? 'Sending...' : 'Submit'}
-      </button>
-
-      {success && (
-        <p className="text-green-500 mt-4">Message sent successfully!</p>
-      )}
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-    </form>
+        <div className="w-full">
+          <Slider {...settings}>
+            <div>
+              <InputWrapper
+                id="names"
+                label="What's your name?"
+                type="text"
+                value={formData.names}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="email"
+                label="Enter your email address"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="gender"
+                label="What's your gender?"
+                type="radio"
+                radioName="gender"
+                radioOptions={['Male', 'Female']}
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="age"
+                label="How old are you?"
+                type="number"
+                value={formData.age}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="occupation"
+                label="What's your occupation?"
+                type="text"
+                value={formData.occupation}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="location"
+                label="What's your current location?"
+                type="text"
+                value={formData.location}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="faith"
+                label="Tell us about your faith."
+                type="text"
+                value={formData.faith}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="children"
+                label="How many children do you have? (if any)"
+                type="text"
+                value={formData.children}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="aboutYou"
+                label="Anything else you'd like to share about yourself?"
+                type="textarea"
+                value={formData.aboutYou}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="lookingFor"
+                label="What are you looking for in a partner?"
+                type="textarea"
+                value={formData.lookingFor}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="mpesaCode"
+                label="MPESA Confirmation Code"
+                type="text"
+                value={formData.mpesaCode}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <p className="opacity text-4xl font-bold flux text-foreground text-center mb-4">
+                {isFormComplete(formData) ? (
+                  <p className="opacity-70 md:text-4xl">
+                    You&apos;re all set! Click the button below to submit your
+                    details.
+                  </p>
+                ) : (
+                  <p className="opacity-70 md:text-4xl">
+                    Hmm ... looks like you missed something. Please verify that
+                    you filled in all the required details.
+                  </p>
+                )}
+              </p>
+              <div className="w-full flex justify-center">
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  disabled={loading || !isFormComplete(formData)}
+                  className={`w-4/5 rounded shadow-xl text-background py-2 mt-4 ${
+                    loading || !isFormComplete(formData)
+                      ? 'bg-gray-400 pointer-events-none cursor-not-allowed'
+                      : 'bg-primary'
+                  }`}
+                >
+                  {loading ? 'Sending...' : 'Submit'}
+                </button>
+              </div>
+            </div>
+          </Slider>
+        </div>
+      </form>
+    </>
   )
 }
 
 export default Form
+
+const isFormComplete = (formData) => {
+  for (const key in formData) {
+    if (formData[key] === '') {
+      return false
+    }
+  }
+  return true
+}
