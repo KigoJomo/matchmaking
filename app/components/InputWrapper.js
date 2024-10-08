@@ -1,3 +1,5 @@
+// app/components/InputWrapper.js
+
 import React from 'react';
 
 const InputWrapper = ({ label, type, value, id, onChange, required }) => (
