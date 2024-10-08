@@ -9,7 +9,7 @@ const Landing = () => {
         <MyLottie />
       </div>
 
-      <div className="w-full md:w-1/3 md:h-full p-4 md:p-4 border-2 border-background rounded-3xl text-background bg-primary custom-shadow  flex flex-col justify-center gap-6 md:gap-12 relative">
+      <div className="w-full md:w-1/3 md:h-full p-4 pb-8 md:p-4 border-2 border-background rounded-3xl text-background bg-primary custom-shadow  flex flex-col justify-center gap-6 md:gap-12 relative">
         <p className="md:absolute top-12 text-xl opacity-50 sora -rotate-0">
           #WatuWaoane
         </p>
