@@ -15,7 +15,7 @@ const Landing = () => {
         </p>
 
         <h2 className="font-bold">
-          Match Making with <span className="opacity-70">Fred</span>
+          Matchmaking by <span className="opacity-70">Fred</span>
         </h2>
 
         <p className="opacity-80">

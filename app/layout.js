@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Match Making by Fred",
+  title: "Matchmaking by Fred",
   description: "#muoenamuolewo",
   metadataBase: new URL('https://matchmakingbyfred.vercel.app/'),
   alternates: {
