@@ -14,6 +14,7 @@ const Form = () => {
   const [formData, setFormData] = useState({
     names: '',
     email: '',
+    phone: '',
     gender: '',
     age: '',
     occupation: '',
@@ -60,6 +61,7 @@ const Form = () => {
           setFormData({
             names: '',
             email: '',
+            phone: '',
             gender: '',
             age: '',
             occupation: '',
@@ -120,6 +122,16 @@ const Form = () => {
                 label="Enter your email address"
                 type="email"
                 value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <InputWrapper
+                id="phone"
+                label="Enter your phone number"
+                type="tel"
+                value={formData.phone}
                 onChange={handleChange}
                 required
               />
@@ -188,7 +200,7 @@ const Form = () => {
             <div>
               <InputWrapper
                 id="aboutYou"
-                label="Anything else you'd like to share about yourself?"
+                label="Any more information you'd like to share?"
                 type="textarea"
                 value={formData.aboutYou}
                 onChange={handleChange}

@@ -41,6 +41,7 @@ const InputWrapper = ({
     {(type === 'text' ||
       type === 'textarea' ||
       type === 'email' ||
+      type === 'tel' ||
       type === 'number') && (
       <div className="flex flex-col gap-8">
         <label htmlFor={id} className="opacity-70 text-4xl flux text-foreground">

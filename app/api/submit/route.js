@@ -7,6 +7,7 @@ export async function POST(req) {
     const {
       names,
       email,
+      phone,
       gender,
       age,
       occupation,
@@ -22,6 +23,7 @@ export async function POST(req) {
     if (
       !names ||
       !email ||
+      !phone ||
       !gender ||
       !age ||
       !occupation ||
@@ -61,6 +63,7 @@ export async function POST(req) {
             [
               names,
               email,
+              phone,
               gender,
               age,
               occupation,
@@ -86,7 +89,7 @@ export async function POST(req) {
     }
 
     // Construct WhatsApp message
-    const message = `*Name:* ${names}\n*Email:* ${email}\n*Gender:* ${gender}\n*Age:* ${age}\n*Occupation:* ${occupation}\n*Location:* ${location}\n*Faith:* ${faith}\n*Children:* ${children}\n*About You:* ${aboutYou}\n*MPESA Code:* ${mpesaCode}\n*Looking For:* ${lookingFor}`
+    const message = `*Name:* ${names}\n*Email:* ${email}\n*Phone Number:*${phone}\n*Gender:* ${gender}\n*Age:* ${age}\n*Occupation:* ${occupation}\n*Location:* ${location}\n*Faith:* ${faith}\n*Children:* ${children}\n*More Information:* ${aboutYou}\n*MPESA Code:* ${mpesaCode}\n*Looking For:* ${lookingFor}`
     const whatsappNumber = process.env.WHATSAPP_NUMBER
 
     const url = createWhatsAppUrl(whatsappNumber, message)
