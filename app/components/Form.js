@@ -2,13 +2,17 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import InputWrapper from './InputWrapper'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+function createWhatsAppUrl(whatsappNumber, message) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+}
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -26,16 +30,22 @@ const Form = () => {
     lookingFor: '',
   })
 
+  const sliderRef = useRef(null)
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!isFormComplete(formData)) {
+      toast.error('Please fill out all required fields.')
+      return
+    }
 
     setLoading(true)
 
@@ -54,7 +64,6 @@ const Form = () => {
       if (response.ok) {
         if (result.url) {
           window.open(result.url)
-          setSuccess(true)
           toast.success('Your profile has been registered successfully!', {
             autoClose: false,
           })
@@ -72,17 +81,39 @@ const Form = () => {
             mpesaCode: '',
             lookingFor: '',
           })
-            // reset slick slider back to first item
-            document.getElementById("section").scrollTo(0, 0)
+          // reset slick slider back to first item
+          sliderRef.current.slickGoTo(0)
+          document.getElementById('section').scrollTo(0, 0)
         } else {
-          // alert the user that the response couldn't be sent on whatsapp
-          // construct a url (https://wa.me ...) using the data that the user entered, and give them an option to 'click here' to send their via whatsapp
+          const whatsappNumber = process.env.WHATSAPP_NUMBER
+
+          const message = `*Name:* ${formData.names}\n*Email:* ${formData.email}\n*Phone Number:* ${formData.phone}\n*Gender:* ${formData.gender}\n*Age:* ${formData.age}\n*Occupation:* ${formData.occupation}\n*Location:* ${formData.location}\n*Faith:* ${formData.faith}\n*Children:* ${formData.children}\n*More Information:* ${formData.aboutYou}\n*MPESA Code:* ${formData.mpesaCode}\n*Looking For:* ${formData.lookingFor}`
+
+          const fallbackWhatsAppURL = createWhatsAppUrl(whatsappNumber, message)
+
+          toast.info(
+            <p>
+              Something went wrong. You can still{' '}
+              <a
+                href={fallbackWhatsAppURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600"
+              >
+                click here to send your details via WhatsApp
+              </a>
+              .
+            </p>,
+            { autoClose: false }
+          )
         }
       } else {
         setError(result.message || 'Something went wrong.')
+        toast.error('An error occurred. Please try again.')
       }
     } catch (error) {
       setError('An error occurred. Please try again.')
+      toast.error('An error occurred while submitting the form.')
     }
 
     setLoading(false)
@@ -105,7 +136,7 @@ const Form = () => {
         aria-live="polite"
       >
         <div className="w-full">
-          <Slider {...settings}>
+          <Slider ref={sliderRef} {...settings}>
             <div>
               <InputWrapper
                 id="names"
